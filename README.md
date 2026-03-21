@@ -1,21 +1,21 @@
 # Autonomous Financial Researcher
 
-A Python-based agent that generates a daily financial briefing for a configurable stock watchlist. It reads a list of tickers, fetches current prices, retrieves relevant news, and writes a structured markdown report — without any manual steps.
+A Python-based agent that generates a daily financial briefing for a configurable stock watchlist. It reads a list of tickers, fetches current prices, retrieves relevant news, and writes a structured markdown report without any manual steps.
 
 Built using MCP (Model Context Protocol) as the interface between the LLM chain and its tools.
 
 
 ## Goal
 
-- **Input:** `data/input/watchlist.csv` — a list of stock tickers
-- **Output:** `data/output/briefing.md` — a structured daily briefing with prices and news per ticker
+- **Input:** `data/input/watchlist.csv` - a list of stock tickers
+- **Output:** `data/output/briefing.md` - a structured daily briefing with prices and news per ticker
 
 
 ## Repository Layout
 
 ```
 src/
-  main.py               # Entry point — runs the full chain
+  main.py               # Entry point: runs the full chain
   chain/
     agent_chain.py      # LLM chain: wires tools together and drives the run
   tools/
@@ -77,8 +77,6 @@ The briefing is written to `data/output/briefing.md`.
 ```bash
 docker compose up
 ```
-
----
 
 ## Tests
 
