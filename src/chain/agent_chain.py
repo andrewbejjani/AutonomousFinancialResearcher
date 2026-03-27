@@ -1,0 +1,102 @@
+from langchain_anthropic import ChatAnthropic
+from langchain_mcp_adapters.client import MultiServerMCPClient
+from langchain.schema import HumanMessage, SystemMessage
+from datetime import date
+import asyncio
+import os
+
+# we connect to all three mcp servers here
+# each server runs independently on its own port
+# the chain just talks to them over sse, it doesn't care what's inside each tool
+async def build_client():
+    client = MultiServerMCPClient({
+        "watchlist": {
+            "url": "http://127.0.0.1:8000/sse",
+            "transport": "sse",
+        },
+        "stock_price": {
+            "url": "http://127.0.0.1:8001/sse",
+            "transport": "sse",
+        },
+        "news": {
+            "url": "http://127.0.0.1:8002/sse",
+            "transport": "sse",
+        },
+    })
+    return client
+
+async def run_chain(watchlist_path: str, output_path: str):
+    # connect to all three mcp servers and grab their tools
+    client = await build_client()
+
+    async with client:
+        tools = await client.get_tools()
+
+        # we need to find each tool by name so we can call them manually
+        # the tool names come from what each mcp server registers
+        watchlist_tool = next(t for t in tools if t.name == "read_watchlist")
+        price_tool     = next(t for t in tools if t.name == "get_stock_price")
+        news_tool      = next(t for t in tools if t.name == "get_news")
+
+        # step 1: read the watchlist to get the list of tickers
+        print("Reading watchlist...")
+        tickers = await watchlist_tool.ainvoke({"file_path": watchlist_path})
+        print(f"Found tickers: {tickers}")
+
+        # step 2: for each ticker, fetch price and news in parallel
+        # no point doing them one by one when we can do them all at once
+        ticker_data = {}
+
+        for ticker in tickers:
+            print(f"Fetching data for {ticker}...")
+
+            # we run price and news fetch at the same time for each ticker
+            price, news = await asyncio.gather(
+                price_tool.ainvoke({"ticker": ticker}),
+                news_tool.ainvoke({"ticker": ticker}),
+            )
+
+            ticker_data[ticker] = {
+                "price": price,
+                "news": news,
+            }
+
+        # step 3: format all the raw data into a single prompt for the llm
+        # we just dump everything in a readable way and let the llm structure it
+        raw_data_block = ""
+        for ticker, data in ticker_data.items():
+            raw_data_block += f"\n{ticker}:\n"
+            raw_data_block += f"  Price: {data['price']}\n"
+            raw_data_block += f"  News: {data['news']}\n"
+
+        today = date.today().strftime("%B %d, %Y")
+
+        # step 4: send everything to the llm and ask it to write the briefing
+        llm = 
+
+        messages = [
+            SystemMessage(content=(
+                "You are a financial research assistant. "
+                "You receive raw stock price and news data and write a clean, concise daily briefing. "
+                "For each stock write a short paragraph covering the current price and what the news says. "
+                "Do not add any information that was not provided to you. Keep the tone neutral and factual."
+            )),
+            HumanMessage(content=(
+                f"Today is {today}. Here is the raw data for each stock in the watchlist:\n"
+                f"{raw_data_block}\n\n"
+                "Please write the daily briefing."
+            )),
+        ]
+
+        print("Generating briefing...")
+        response = await llm.ainvoke(messages)
+        briefing = response.content
+
+        # step 5: write the output to a markdown file
+        # this is the final output the user reads
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w") as f:
+            f.write(f"# Daily Financial Briefing — {today}\n\n")
+            f.write(briefing)
+
+        print(f"Briefing written to {output_path}")

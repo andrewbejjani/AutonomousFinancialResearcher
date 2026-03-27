@@ -1,2 +1,4 @@
 pandas
 mcp[cli]
+langchain-anthropic
+langchain-mcp-adapters
