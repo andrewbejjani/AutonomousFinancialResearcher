@@ -3,3 +3,4 @@ mcp[cli]
 langchain-anthropic
 langchain-mcp-adapters
 requests
+yfinance
