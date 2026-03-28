@@ -80,10 +80,26 @@ docker compose up
 
 ## Tests
 
+### Automated Tests
 ```bash
 pytest tests/
 ```
 
+### Manual MCP Tool Testing
+You can manually test individual MCP tools via the MCP Inspector before running the entire chain.
+
+**For the News Tool:**
+1. Run the tool server:
+```bash
+python src/tools/news.py
+```
+2. In a new terminal, launch the inspector:
+```bash
+npx @modelcontextprotocol/inspector
+```
+3. Open the browser link provided, put the URL `http://127.0.0.1:8002`, select the `SSE` transport, and test the `fetch_news` tool.
+
+*(Note: The Watchlist tool runs on port `8000` and the Stock Price tool likely on port `8001`)*
 
 ## Environment Variables
 
