@@ -1,20 +1,28 @@
 from mcp.server.fastmcp import FastMCP
 import yfinance as yf
+from src.utils.logger import get_logger
 
 # using port 8002 here to avoid conflicts with watchlist and stock_price tools
-mcp = FastMCP("News Tool", host="127.0.0.1", port=8002)
+
+HOST = "127.0.0.1"
+PORT = 8002
+
+logger = get_logger("NewsTool")
+mcp = FastMCP("News Tool", host=HOST, port=PORT)
 
 @mcp.tool()
 def fetch_news(ticker: str, max_articles: int = 3) -> list[dict]:
     """
     Returns the latest news headlines and summaries for a given ticker symbol.
     """
+    logger.info(f"Fetching up to {max_articles} news articles for ticker: {ticker}")
     
     try:
         stock = yf.Ticker(ticker)
         raw_news = stock.news
         
         if not raw_news:
+            logger.info(f"No news articles found for {ticker} via Yahoo Finance.")
             return []
             
         articles = []
@@ -46,6 +54,7 @@ def fetch_news(ticker: str, max_articles: int = 3) -> list[dict]:
         # fallback: if the filter was too strict and dropped everything, just revert 
         # to grabbing whatever top results yahoo gave us so we dont crash the chain
         if not articles:
+            logger.warning(f"Strict filter dropped all articles for {ticker}. Reverting to fallback top results.")
             for item in raw_news[:max_articles]:
                 content = item.get('content', item)
                 provider = content.get('provider')
@@ -58,13 +67,15 @@ def fetch_news(ticker: str, max_articles: int = 3) -> list[dict]:
                     "published_at": content.get('pubDate', content.get('providerPublishTime', '')),
                     "source": source_name
                 })
-                
+        logger.info(f"Successfully retrieved {len(articles)} articles for {ticker}.")
         return articles
         
     except Exception as e:
+        logger.error(f"Error fetching news for {ticker}: {str(e)}")
         return []
 
 if __name__ == "__main__":
+    logger.info(f"Starting the News Tool MCP Server on http://{HOST}:{PORT}/sse...")
     mcp.run(transport="sse")
 
 # to test it on mcp:
