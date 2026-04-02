@@ -1,9 +1,12 @@
 from mcp.server.fastmcp import FastMCP
 import pandas as pd
 from src.utils.logger import get_logger
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 HOST = "127.0.0.1"
-PORT = 8000
+PORT = int(os.environ.get("WATCHLIST_PORT", 8000))
 
 logger = get_logger("WatchlistTool")
 mcp = FastMCP("Watchlist Tool", host=HOST, port=PORT)

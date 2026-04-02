@@ -1,17 +1,20 @@
 from mcp.server.fastmcp import FastMCP
 import yfinance as yf
 from src.utils.logger import get_logger
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # using port 8002 here to avoid conflicts with watchlist and stock_price tools
 
 HOST = "127.0.0.1"
-PORT = 8002
+PORT = int(os.environ.get("NEWS_PORT", 8002))
 
 logger = get_logger("NewsTool")
 mcp = FastMCP("News Tool", host=HOST, port=PORT)
 
 @mcp.tool()
-def fetch_news(ticker: str, max_articles: int = 3) -> list[dict]:
+def get_news(ticker: str, max_articles: int = 3) -> list[dict]:
     """
     Returns the latest news headlines and summaries for a given ticker symbol.
     """

@@ -1,9 +1,12 @@
 from mcp.server.fastmcp import FastMCP
 import yfinance as yf
 from src.utils.logger import get_logger
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 HOST = "127.0.0.1"
-PORT = 8001
+PORT = int(os.environ.get("STOCK_PRICE_PORT", 8001))
 
 logger = get_logger("StockPriceTool")
 mcp = FastMCP("Stock Price Tool", host=HOST, port=PORT)

@@ -1,12 +1,21 @@
-from langchain_anthropic import ChatAnthropic
+from langchain_mistralai import ChatMistralAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain.schema import HumanMessage, SystemMessage
 from datetime import date
 import asyncio
 import os
+from dotenv import load_dotenv
 from src.utils.logger import get_logger
 
+
+load_dotenv()
 logger = get_logger("AgentOrchestrator")
+
+llm = ChatMistralAI(
+    model="mistral-small-latest",  # free tier model
+    temperature=0,
+    api_key=os.environ.get("MISTRAL_API_KEY"),
+)
 
 # we connect to all three mcp servers here
 # each server runs independently on its own port
@@ -14,15 +23,15 @@ logger = get_logger("AgentOrchestrator")
 async def build_client():
     client = MultiServerMCPClient({
         "watchlist": {
-            "url": "http://127.0.0.1:8000/sse",
+            "url": f"http://127.0.0.1:{os.environ.get('WATCHLIST_PORT', 8000)}/sse",  # ← changed
             "transport": "sse",
         },
         "stock_price": {
-            "url": "http://127.0.0.1:8001/sse",
+            "url": f"http://127.0.0.1:{os.environ.get('STOCK_PRICE_PORT', 8001)}/sse",  # ← changed
             "transport": "sse",
         },
         "news": {
-            "url": "http://127.0.0.1:8002/sse",
+            "url": f"http://127.0.0.1:{os.environ.get('NEWS_PORT', 8002)}/sse",  # ← changed
             "transport": "sse",
         },
     })
@@ -93,8 +102,6 @@ async def run_chain(watchlist_path: str, output_path: str):
 
             # step 4: send everything to the llm and ask it to write the briefing
             logger.info("Connecting to LLM to generate the briefing...")
-
-            llm = ## initialize LLM here, to be done by sanchay
 
             messages = [
                 SystemMessage(content=(
