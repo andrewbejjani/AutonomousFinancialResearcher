@@ -1,6 +1,13 @@
-pandas
-mcp[cli]
-langchain-anthropic
-langchain-mcp-adapters
-requests
-yfinance
+pandas==3.0.2
+yfinance==1.2.0
+
+# langchain stuff
+langchain==1.2.14
+langchain-mistralai==1.1.2
+
+# mcp tools
+mcp[cli]==1.27.0
+langchain-mcp-adapters==0.2.2
+
+python-dotenv==1.2.2
+requests==2.33.1
