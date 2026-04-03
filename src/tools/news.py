@@ -1,77 +1,88 @@
 from mcp.server.fastmcp import FastMCP
-import requests
+import yfinance as yf
+from src.utils.logger import get_logger
+from dotenv import load_dotenv
 import os
+load_dotenv()
 
-# Using port 8002 to avoid conflicts with watchlist (8000) and stock_price (8001)
-mcp = FastMCP("News Tool", host="127.0.0.1", port=8002)
+# using port 8002 here to avoid conflicts with watchlist and stock_price tools
 
-# Recommended: Load from environment variables instead of hardcoding
-NEWS_API_KEY = os.environ.get("NEWS_API_KEY", "YOUR_API_KEY_HERE")
-NEWS_API_URL = "https://newsapi.org/v2/everything"
+HOST = "127.0.0.1"
+PORT = int(os.environ.get("NEWS_PORT", 8002))
+
+logger = get_logger("NewsTool")
+mcp = FastMCP("News Tool", host=HOST, port=PORT)
 
 @mcp.tool()
-def fetch_news(ticker: str, max_articles: int = 3) -> list[dict]:
+def get_news(ticker: str, max_articles: int = 3) -> list[dict]:
     """
-    Fetches the latest news headlines and summaries for a given stock ticker.
-    Filters by relevance into a structured return format.
+    Returns the latest news headlines and summaries for a given ticker symbol.
     """
-    print(f"Fetching news for {ticker}...")
+    logger.info(f"Fetching up to {max_articles} news articles for ticker: {ticker}")
     
-    # -------------------------------------------------------------
-    # OPTION A: REAL API CALL (uncomment and use when ready)
-    # -------------------------------------------------------------
-    # try:
-    #     params = {
-    #         "q": ticker,
-    #         "apiKey": NEWS_API_KEY,
-    #         "language": "en",
-    #         "sortBy": "publishedAt",
-    #         "pageSize": max_articles
-    #     }
-    #     response = requests.get(NEWS_API_URL, params=params)
-    #     response.raise_for_status()
-    #     data = response.json()
-    #     
-    #     articles = []
-    #     for item in data.get("articles", []):
-    #         articles.append({
-    #             "headline": item.get("title"),
-    #             "summary": item.get("description"),
-    #             "url": item.get("url"),
-    #             "published_at": item.get("publishedAt")
-    #         })
-    #     return articles
-    # except Exception as e:
-    #     print(f"Error fetching news for {ticker}: {e}")
-    #     return []
-
-    # -------------------------------------------------------------
-    # OPTION B: MOCK RESPONSE FOR INITIAL TESTING
-    # -------------------------------------------------------------
-    mock_news = [
-        {
-            "headline": f"{ticker} Expected to Outperform Market Estimates",
-            "summary": f"Analysts suggest {ticker} will see solid growth over the coming quarter following recent restructuring.",
-            "url": f"https://finance.yahoo.com/quote/{ticker}/news",
-            "published_at": "2026-03-28T09:00:00Z"
-        },
-        {
-            "headline": f"New Sector Regulations Might Impact {ticker}",
-            "summary": f"Government officials announced new guidelines that could affect {ticker}'s operations going forward.",
-            "url": f"https://example.com/news/{ticker.lower()}-regulations",
-            "published_at": "2026-03-28T08:30:00Z"
-        }
-    ]
-    
-    # Return limited number of articles
-    return mock_news[:max_articles]
+    try:
+        stock = yf.Ticker(ticker)
+        raw_news = stock.news
+        
+        if not raw_news:
+            logger.info(f"No news articles found for {ticker} via Yahoo Finance.")
+            return []
+            
+        articles = []
+        for item in raw_news:
+            if len(articles) >= max_articles:
+                break
+                
+            # yfinance sometimes nests the data under 'content', so handle both ways just in case
+            content = item.get('content', item)
+            
+            title = content.get('title', '')
+            summary = content.get('summary', '') or content.get('description', '')
+            
+            # simple filter to make sure the ticker actually shows up in the title or summary somewhere
+            if ticker.upper() in title.upper() or ticker.upper() in summary.upper():
+                
+                # grab nested provider object safely if it exists
+                provider = content.get('provider')
+                source_name = provider.get('displayName') if isinstance(provider, dict) else "Yahoo Finance"
+                
+                articles.append({
+                    "headline": title,
+                    "summary": summary,
+                    "url": content.get('canonicalUrl', content.get('link', '')),
+                    "published_at": content.get('pubDate', content.get('providerPublishTime', '')),
+                    "source": source_name
+                })
+        
+        # fallback: if the filter was too strict and dropped everything, just revert 
+        # to grabbing whatever top results yahoo gave us so we dont crash the chain
+        if not articles:
+            logger.warning(f"Strict filter dropped all articles for {ticker}. Reverting to fallback top results.")
+            for item in raw_news[:max_articles]:
+                content = item.get('content', item)
+                provider = content.get('provider')
+                source_name = provider.get('displayName') if isinstance(provider, dict) else "Yahoo Finance"
+                
+                articles.append({
+                    "headline": content.get('title', ''),
+                    "summary": content.get('summary', '') or content.get('description', ''),
+                    "url": content.get('canonicalUrl', content.get('link', '')),
+                    "published_at": content.get('pubDate', content.get('providerPublishTime', '')),
+                    "source": source_name
+                })
+        logger.info(f"Successfully retrieved {len(articles)} articles for {ticker}.")
+        return articles
+        
+    except Exception as e:
+        logger.error(f"Error fetching news for {ticker}: {str(e)}")
+        return []
 
 if __name__ == "__main__":
-    # Run the server using Server-Sent Events (SSE) transport
+    logger.info(f"Starting the News Tool MCP Server on http://{HOST}:{PORT}/sse...")
     mcp.run(transport="sse")
 
-# To test this tool on MCP:
-# 1. Run: python3 src/tools/news.py
-# 2. Open a new terminal and run: npx @modelcontextprotocol/inspector
-# 3. Enter URL http://127.0.0.1:8002 and transport type SSE
-# 4. You can then test the tool `fetch_news` by providing a ticker like "AAPL"
+# to test it on mcp:
+# run: python3 src/tools/news.py
+# then open a new terminal and run: npx @modelcontextprotocol/inspector (make sure node.js is installed)
+# open the mcp inspector in browser, put the url http://127.0.0.1:8002/sse and the transport sse
+# then you can test the tool fetch_news by providing a ticker like "AAPL"
