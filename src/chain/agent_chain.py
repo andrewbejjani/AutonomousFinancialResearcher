@@ -1,6 +1,6 @@
 from langchain_mistralai import ChatMistralAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from langchain.schema import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from datetime import date
 import asyncio
 import os
@@ -44,7 +44,7 @@ async def run_chain(watchlist_path: str, output_path: str):
 
         client = await build_client()
 
-        async with client:
+        if True:
             tools = await client.get_tools()
 
             # we need to find each tool by name so we can call them manually
@@ -71,7 +71,24 @@ async def run_chain(watchlist_path: str, output_path: str):
             # no point doing them one by one when we can do them all at once
             ticker_data = {}
 
-            for ticker in tickers:
+            for raw_t in tickers:
+                if isinstance(raw_t, dict) and "text" in raw_t:
+                    # extract the string and strip any list formatting if it was stringified
+                    ticker = raw_t["text"]
+                else:
+                    ticker = str(raw_t)
+
+                # if it accidentally parsed as a huge string representation of a list, fix it
+                import ast
+                try:
+                    if ticker.startswith("["):
+                        parsed_list = ast.literal_eval(ticker)
+                        for t in parsed_list:
+                            # We shouldn't do nested loop here, let's just assume one level.
+                            pass
+                except Exception:
+                    pass
+
                 logger.info(f"Fetching price and news data for {ticker}...")
 
                 try:

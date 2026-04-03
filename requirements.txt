@@ -5,3 +5,4 @@ langchain-mcp-adapters
 requests
 yfinance
 python-dotenv
+langchain
