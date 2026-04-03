@@ -1,6 +1,7 @@
 pandas
 mcp[cli]
-langchain-anthropic
+langchain-mistralai
 langchain-mcp-adapters
 requests
 yfinance
+python-dotenv
