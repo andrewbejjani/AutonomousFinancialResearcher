@@ -30,7 +30,6 @@ tests/
   test_watchlist.py
   test_stock_price.py
   test_news.py
-  test_chain.py
 deployment/
   Dockerfile
   docker-compose.yml
@@ -80,9 +79,28 @@ docker compose up
 
 ## Tests
 
-### Automated Tests
+### Automated Integration Tests
+
+To run all three integrations tests together at once, run:
 ```bash
-pytest tests/
+PYTHONPATH=. .venv/bin/pytest tests/ -v
+```
+
+If you specify the exact file, you can run the integration tests individually. 
+
+**Stock Price FastMCP Integration:**
+```bash
+PYTHONPATH=. .venv/bin/pytest tests/test_stock_price.py -v
+```
+
+**News Tool FastMCP Integration:**
+```bash
+PYTHONPATH=. .venv/bin/pytest tests/test_news.py -v
+```
+
+**Watchlist Loader Integration:**
+```bash
+PYTHONPATH=. .venv/bin/pytest tests/test_watchlist.py -v
 ```
 
 ### Manual MCP Tool Testing
