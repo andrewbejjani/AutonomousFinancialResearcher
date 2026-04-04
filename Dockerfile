@@ -14,4 +14,4 @@ COPY . .
 ENV PYTHONPATH=/app
 
 # using python execution as our default
-CMD ["python3"]
+CMD ["python3", "-m", "src.main"]
