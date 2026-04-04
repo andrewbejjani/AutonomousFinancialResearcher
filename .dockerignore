@@ -1,0 +1,14 @@
+.git/
+venv/
+__pycache__/
+*.pyc
+.env
+env.txt
+*.pdf
+pdf_content.txt
+data/
+watchlist.csv
+*.log
+run.bat
+.gitignore
+README.md
