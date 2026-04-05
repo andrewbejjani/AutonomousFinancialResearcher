@@ -14,3 +14,6 @@ requests==2.33.1
 
 # testing
 pytest>=8.0.0
+
+# ui stuff
+flask==3.0.2
