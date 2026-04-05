@@ -3,6 +3,7 @@ import os
 import sys
 from src.chain.agent_chain import run_chain
 from src.utils.logger import get_logger
+from datetime import date
 
 logger = get_logger("MainLauncher")
 
@@ -86,9 +87,10 @@ async def main():
         
         # after making sure all mcp servers are online, we start the agentic chain
         logger.info("Starting the financial research chain...")
+        file_date = date.today().strftime("%d%m%y")
         await run_chain(
             watchlist_path="data/input/watchlist.csv",
-            output_path="data/output/briefing.md"
+            output_path=f"data/output/briefing_{file_date}.md"
         )
         
     except Exception as e:

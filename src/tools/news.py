@@ -5,9 +5,8 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-# using port 8002 here to avoid conflicts with watchlist and stock_price tools
 
-HOST = "127.0.0.1"
+HOST = os.environ.get("HOST", "127.0.0.1")
 PORT = int(os.environ.get("NEWS_PORT", 8002))
 
 logger = get_logger("NewsTool")

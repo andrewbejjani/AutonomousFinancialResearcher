@@ -1,180 +1,302 @@
-2026-04-04 10:56:03 | MainLauncher | INFO | Starting background server: src.tools.watchlist
-2026-04-04 10:56:03 | MainLauncher | INFO | Starting background server: src.tools.stock_price
-2026-04-04 10:56:03 | MainLauncher | INFO | Starting background server: src.tools.news
-2026-04-04 10:56:03 | MainLauncher | INFO | Polling server ports for health checks...
-2026-04-04 10:56:14 | WatchlistTool | INFO | Starting the Watchlist Tool MCP Server on http://127.0.0.1:8000 (SSE)...
-[04/04/26 10:56:14] INFO     Starting the Watchlist Tool MCP Server on http://127.0.0.1:8000 (SSE)...                                                    watchlist.py:57
-INFO:     Started server process [62640]
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 458B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 4.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 93B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.26kB done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/python:3.12-slim@sha256:3d5ed973e45820f5ba5e46bd065bd88b3a504ff0724d85980dcd05eab361fcf4
+#5 resolve docker.io/library/python:3.12-slim@sha256:3d5ed973e45820f5ba5e46bd065bd88b3a504ff0724d85980dcd05eab361fcf4 0.0s done
+#5 DONE 0.0s
+
+#6 [3/5] COPY requirements.txt .
+#6 CACHED
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [5/5] COPY . .
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers done
+#10 exporting manifest sha256:27753e1b223c76ae0fa8f659da6726bc24c77ed9642d3da27f8684d28a875a54 done
+#10 exporting config sha256:2516cb404623faba95521d68df745de86dd7da3e7ec2d8bd767eb3ee72e02bbd done
+#10 exporting attestation manifest sha256:38199cf5f0553c48de2455f25b255d6ec17daf0369eedc841b0288a12a6c37eb 0.1s done
+#10 exporting manifest list sha256:128b122ad511f3431bd15a0ac17cbbc25991e869d50bbd464da043a36c9cf5e1
+#10 exporting manifest list sha256:128b122ad511f3431bd15a0ac17cbbc25991e869d50bbd464da043a36c9cf5e1 0.0s done
+#10 naming to docker.io/library/financial-researcher:latest done
+#10 unpacking to docker.io/library/financial-researcher:latest done
+#10 DONE 0.1s
+
+
+2026-04-05 18:38:06 | MainLauncher | INFO | Starting background server: src.tools.watchlist
+2026-04-05 18:38:06 | MainLauncher | INFO | Starting background server: src.tools.stock_price
+2026-04-05 18:38:06 | MainLauncher | INFO | Starting background server: src.tools.news
+2026-04-05 18:38:06 | MainLauncher | INFO | Polling server ports for health checks...
+2026-04-05 18:38:07 | WatchlistTool | INFO | Starting the Watchlist Tool MCP Server on http://127.0.0.1:8000 (SSE)...
+2026-04-05 18:38:07 | StockPriceTool | INFO | Starting the Stock Price Tool MCP Server on http://127.0.0.1:8001/sse...
+2026-04-05 18:38:07 | NewsTool | INFO | Starting the News Tool MCP Server on http://127.0.0.1:8002/sse...
+2026-04-05 18:38:08 | MainLauncher | INFO | All MCP servers are online.
+2026-04-05 18:38:08 | MainLauncher | INFO | Starting the financial research chain...
+2026-04-05 18:38:08 | AgentOrchestrator | INFO | Starting the Autonomous Financial Researcher pipeline...
+INFO:     127.0.0.1:54656 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44754 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42844 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42852 - "POST /messages/?session_id=928d66d1862a4a74a2aa97c5076e0a92 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:54668 - "POST /messages/?session_id=df6eda93ad7541288d4fe9eb0a07747a HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:44760 - "POST /messages/?session_id=a1c15149fdc54ce68e3c53d8d94c7ba0 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:42852 - "POST /messages/?session_id=928d66d1862a4a74a2aa97c5076e0a92 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:54668 - "POST /messages/?session_id=df6eda93ad7541288d4fe9eb0a07747a HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:44760 - "POST /messages/?session_id=a1c15149fdc54ce68e3c53d8d94c7ba0 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:42852 - "POST /messages/?session_id=928d66d1862a4a74a2aa97c5076e0a92 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:54668 - "POST /messages/?session_id=df6eda93ad7541288d4fe9eb0a07747a HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:44760 - "POST /messages/?session_id=a1c15149fdc54ce68e3c53d8d94c7ba0 HTTP/1.1" 202 Accepted
+2026-04-05 18:38:08 | AgentOrchestrator | INFO | Reading watchlist from data/input/watchlist.csv...
+INFO:     127.0.0.1:54684 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54694 - "POST /messages/?session_id=8ac8573752da4dff8574cab779ab48c1 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:54694 - "POST /messages/?session_id=8ac8573752da4dff8574cab779ab48c1 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:54694 - "POST /messages/?session_id=8ac8573752da4dff8574cab779ab48c1 HTTP/1.1" 202 Accepted
+2026-04-05 18:38:08 | WatchlistTool | INFO | Attempting to read watchlist from: data/input/watchlist.csv
+2026-04-05 18:38:08 | WatchlistTool | INFO | Successfully loaded 5 tickers from the watchlist
+INFO:     127.0.0.1:54694 - "POST /messages/?session_id=8ac8573752da4dff8574cab779ab48c1 HTTP/1.1" 202 Accepted
+2026-04-05 18:38:08 | AgentOrchestrator | INFO | Found 5 tickers: [{'type': 'text', 'text': 'AAPL', 'id': 'lc_71d30e24-861e-4d86-ab56-24d87650ad7a'}, {'type': 'text', 'text': 'GOOGL', 'id': 'lc_1859d957-2e1b-4e2a-9962-7d32de247baa'}, {'type': 'text', 'text': 'NVDA', 'id': 'lc_f93bf600-2ad2-4937-9ba2-a0acba58eedb'}, {'type': 'text', 'text': 'AMZN', 'id': 'lc_7b96e42b-e78e-415a-b5a3-a10ec3fa389a'}, {'type': 'text', 'text': 'MSFT', 'id': 'lc_4ad16f30-d0ae-4e18-b7c6-0ed2ebb70f3b'}]
+2026-04-05 18:38:08 | AgentOrchestrator | INFO | Fetching price and news data for AAPL...
+INFO:     127.0.0.1:44768 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42866 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44780 - "POST /messages/?session_id=79f189649b5f44cf923563ee5d08f43a HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:42882 - "POST /messages/?session_id=1c5c8324ecbb4ecfaac6548523f7a89e HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:44780 - "POST /messages/?session_id=79f189649b5f44cf923563ee5d08f43a HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:42882 - "POST /messages/?session_id=1c5c8324ecbb4ecfaac6548523f7a89e HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:44780 - "POST /messages/?session_id=79f189649b5f44cf923563ee5d08f43a HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:42882 - "POST /messages/?session_id=1c5c8324ecbb4ecfaac6548523f7a89e HTTP/1.1" 202 Accepted
+2026-04-05 18:38:08 | StockPriceTool | INFO | Fetching current stock price for ticker: AAPL
+2026-04-05 18:38:08 | NewsTool | INFO | Fetching up to 3 news articles for ticker: AAPL
+2026-04-05 18:38:26 | NewsTool | ERROR | Error fetching news for AAPL: Failed to perform, curl: (56) Connection closed abruptly. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+INFO:     127.0.0.1:44844 - "POST /messages/?session_id=1c5c8324ecbb4ecfaac6548523f7a89e HTTP/1.1" 202 Accepted
+2026-04-05 18:39:09 | StockPriceTool | INFO | Retrieved price for AAPL: 255.92
+INFO:     127.0.0.1:50020 - "POST /messages/?session_id=79f189649b5f44cf923563ee5d08f43a HTTP/1.1" 202 Accepted
+2026-04-05 18:39:09 | AgentOrchestrator | INFO | Fetching price and news data for GOOGL...
+INFO:     127.0.0.1:50036 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45040 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45052 - "POST /messages/?session_id=7a408e822ef44a19af24d1092f73e8bd HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50048 - "POST /messages/?session_id=e8714ec4772444428a320943bd3329e1 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:45052 - "POST /messages/?session_id=7a408e822ef44a19af24d1092f73e8bd HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50048 - "POST /messages/?session_id=e8714ec4772444428a320943bd3329e1 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:45052 - "POST /messages/?session_id=7a408e822ef44a19af24d1092f73e8bd HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50048 - "POST /messages/?session_id=e8714ec4772444428a320943bd3329e1 HTTP/1.1" 202 Accepted
+2026-04-05 18:39:09 | NewsTool | INFO | Fetching up to 3 news articles for ticker: GOOGL
+2026-04-05 18:39:09 | StockPriceTool | INFO | Fetching current stock price for ticker: GOOGL
+2026-04-05 18:39:09 | StockPriceTool | INFO | Retrieved price for GOOGL: 295.77
+INFO:     127.0.0.1:50048 - "POST /messages/?session_id=e8714ec4772444428a320943bd3329e1 HTTP/1.1" 202 Accepted
+2026-04-05 18:39:28 | NewsTool | INFO | Successfully retrieved 3 articles for GOOGL.
+INFO:     127.0.0.1:52222 - "POST /messages/?session_id=7a408e822ef44a19af24d1092f73e8bd HTTP/1.1" 202 Accepted
+2026-04-05 18:39:28 | AgentOrchestrator | INFO | Fetching price and news data for NVDA...
+INFO:     127.0.0.1:52226 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37856 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37860 - "POST /messages/?session_id=c79ecb3fe90b4ccda13282b87cdc6344 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:52242 - "POST /messages/?session_id=151a9d0b4d2f40d3b75c1da7d9d48473 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37860 - "POST /messages/?session_id=c79ecb3fe90b4ccda13282b87cdc6344 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:52242 - "POST /messages/?session_id=151a9d0b4d2f40d3b75c1da7d9d48473 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37860 - "POST /messages/?session_id=c79ecb3fe90b4ccda13282b87cdc6344 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:52242 - "POST /messages/?session_id=151a9d0b4d2f40d3b75c1da7d9d48473 HTTP/1.1" 202 Accepted
+2026-04-05 18:39:28 | StockPriceTool | INFO | Fetching current stock price for ticker: NVDA
+2026-04-05 18:39:28 | NewsTool | INFO | Fetching up to 3 news articles for ticker: NVDA
+2026-04-05 18:39:33 | StockPriceTool | INFO | Retrieved price for NVDA: 177.39
+INFO:     127.0.0.1:33732 - "POST /messages/?session_id=c79ecb3fe90b4ccda13282b87cdc6344 HTTP/1.1" 202 Accepted
+2026-04-05 18:39:37 | NewsTool | WARNING | Strict filter dropped all articles for NVDA. Reverting to fallback top results.
+2026-04-05 18:39:37 | NewsTool | INFO | Successfully retrieved 3 articles for NVDA.
+INFO:     127.0.0.1:55466 - "POST /messages/?session_id=151a9d0b4d2f40d3b75c1da7d9d48473 HTTP/1.1" 202 Accepted
+2026-04-05 18:39:37 | AgentOrchestrator | INFO | Fetching price and news data for AMZN...
+INFO:     127.0.0.1:55468 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33734 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33736 - "POST /messages/?session_id=35edc15e74ab4847897113e577f05fe9 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:55482 - "POST /messages/?session_id=c0c2a493578947feae42b68a13df7d5d HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:55482 - "POST /messages/?session_id=c0c2a493578947feae42b68a13df7d5d HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:33736 - "POST /messages/?session_id=35edc15e74ab4847897113e577f05fe9 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:33736 - "POST /messages/?session_id=35edc15e74ab4847897113e577f05fe9 HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:55482 - "POST /messages/?session_id=c0c2a493578947feae42b68a13df7d5d HTTP/1.1" 202 Accepted
+2026-04-05 18:39:37 | NewsTool | INFO | Fetching up to 3 news articles for ticker: AMZN
+2026-04-05 18:39:37 | StockPriceTool | INFO | Fetching current stock price for ticker: AMZN
+2026-04-05 18:39:37 | StockPriceTool | INFO | Retrieved price for AMZN: 209.77
+INFO:     127.0.0.1:33736 - "POST /messages/?session_id=35edc15e74ab4847897113e577f05fe9 HTTP/1.1" 202 Accepted
+2026-04-05 18:39:43 | NewsTool | INFO | Successfully retrieved 1 articles for AMZN.
+INFO:     127.0.0.1:57470 - "POST /messages/?session_id=c0c2a493578947feae42b68a13df7d5d HTTP/1.1" 202 Accepted
+2026-04-05 18:39:43 | AgentOrchestrator | INFO | Fetching price and news data for MSFT...
+INFO:     127.0.0.1:43008 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57472 - "GET /sse HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57480 - "POST /messages/?session_id=463f1c0bf05347bf9c8009a0a38d72eb HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:43012 - "POST /messages/?session_id=dd0ddcef8f8d4196b3dea1281c1e142c HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:57480 - "POST /messages/?session_id=463f1c0bf05347bf9c8009a0a38d72eb HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:43012 - "POST /messages/?session_id=dd0ddcef8f8d4196b3dea1281c1e142c HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:57480 - "POST /messages/?session_id=463f1c0bf05347bf9c8009a0a38d72eb HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:43012 - "POST /messages/?session_id=dd0ddcef8f8d4196b3dea1281c1e142c HTTP/1.1" 202 Accepted
+2026-04-05 18:39:43 | NewsTool | INFO | Fetching up to 3 news articles for ticker: MSFT
+2026-04-05 18:39:43 | StockPriceTool | INFO | Fetching current stock price for ticker: MSFT
+2026-04-05 18:39:44 | NewsTool | INFO | Successfully retrieved 3 articles for MSFT.
+INFO:     127.0.0.1:57480 - "POST /messages/?session_id=463f1c0bf05347bf9c8009a0a38d72eb HTTP/1.1" 202 Accepted
+2026-04-05 18:39:44 | StockPriceTool | INFO | Retrieved price for MSFT: 373.46
+INFO:     127.0.0.1:43012 - "POST /messages/?session_id=dd0ddcef8f8d4196b3dea1281c1e142c HTTP/1.1" 202 Accepted
+2026-04-05 18:39:44 | AgentOrchestrator | INFO | Structuring raw data for the LLM prompt...
+2026-04-05 18:39:44 | AgentOrchestrator | INFO | Connecting to LLM to generate the briefing...
+2026-04-05 18:39:44 | AgentOrchestrator | INFO | Generating briefing...
+2026-04-05 18:39:57 | AgentOrchestrator | INFO | Briefing successfully written to data/output/briefing_050426.md
+2026-04-05 18:39:57 | MainLauncher | INFO | Cleaning up: Sending shutdown signals to MCP servers...
+2026-04-05 18:39:57 | MainLauncher | INFO | Verifying MCP servers have released their ports...
+2026-04-05 18:39:58 | MainLauncher | INFO | All ports successfully released.
+2026-04-05 18:39:58 | MainLauncher | INFO | All systems offline.
+
+[04/05/26 18:38:07] INFO     Starting the Watchlist Tool MCP     watchlist.py:57
+                             Server on http://127.0.0.1:8000                    
+                             (SSE)...                                           
+INFO:     Started server process [7]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-2026-04-04 10:56:15 | NewsTool | INFO | Starting the News Tool MCP Server on http://127.0.0.1:8002/sse...
-[04/04/26 10:56:15] INFO     Starting the News Tool MCP Server on http://127.0.0.1:8002/sse...                                                                news.py:81
-2026-04-04 10:56:15 | StockPriceTool | INFO | Starting the Stock Price Tool MCP Server on http://127.0.0.1:8001/sse...
-[04/04/26 10:56:15] INFO     Starting the Stock Price Tool MCP Server on http://127.0.0.1:8001/sse...                                                  stock_price.py:29
-INFO:     Started server process [9324]
+[04/05/26 18:38:07] INFO     Starting the Stock Price Tool MCP stock_price.py:29
+                             Server on                                          
+                             http://127.0.0.1:8001/sse...                       
+[04/05/26 18:38:07] INFO     Starting the News Tool MCP Server on     news.py:80
+                             http://127.0.0.1:8002/sse...                       
+INFO:     Started server process [8]
 INFO:     Waiting for application startup.
-INFO:     Started server process [45668]
+INFO:     Started server process [9]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:8002 (Press CTRL+C to quit)
 INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
-2026-04-04 10:56:15 | MainLauncher | INFO | All MCP servers are online.
-2026-04-04 10:56:15 | MainLauncher | INFO | Starting the financial research chain...
-2026-04-04 10:56:15 | AgentOrchestrator | INFO | Starting the Autonomous Financial Researcher pipeline...
-INFO:     127.0.0.1:59421 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59420 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59422 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59423 - "POST /messages/?session_id=70926ca56dbd4c7cb13a425202683e27 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59424 - "POST /messages/?session_id=3689c479c9da49eea260abf8b621d66a HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59425 - "POST /messages/?session_id=3267b707514548ff86e5480d39522d58 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59423 - "POST /messages/?session_id=70926ca56dbd4c7cb13a425202683e27 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59424 - "POST /messages/?session_id=3689c479c9da49eea260abf8b621d66a HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59425 - "POST /messages/?session_id=3267b707514548ff86e5480d39522d58 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59423 - "POST /messages/?session_id=70926ca56dbd4c7cb13a425202683e27 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59424 - "POST /messages/?session_id=3689c479c9da49eea260abf8b621d66a HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59425 - "POST /messages/?session_id=3267b707514548ff86e5480d39522d58 HTTP/1.1" 202 Accepted
-[04/04/26 10:56:16] INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-[04/04/26 10:56:16] INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-[04/04/26 10:56:16] INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:16 | AgentOrchestrator | INFO | Reading watchlist from data/input/watchlist.csv...
-INFO:     127.0.0.1:59426 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59427 - "POST /messages/?session_id=82a0fb013f4c493697be5a4d8e2e9d27 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59427 - "POST /messages/?session_id=82a0fb013f4c493697be5a4d8e2e9d27 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59427 - "POST /messages/?session_id=82a0fb013f4c493697be5a4d8e2e9d27 HTTP/1.1" 202 Accepted
-[04/04/26 10:56:17] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:17 | WatchlistTool | INFO | Attempting to read watchlist from: data/input/watchlist.csv
-                    INFO     Attempting to read watchlist from: data/input/watchlist.csv                                                                 watchlist.py:21
-2026-04-04 10:56:17 | WatchlistTool | INFO | Successfully loaded 5 tickers from the watchlist
-                    INFO     Successfully loaded 5 tickers from the watchlist                                                                            watchlist.py:39
-INFO:     127.0.0.1:59427 - "POST /messages/?session_id=82a0fb013f4c493697be5a4d8e2e9d27 HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:17 | AgentOrchestrator | INFO | Found 5 tickers: [{'type': 'text', 'text': 'AAPL', 'id': 'lc_f316dc36-7f2c-406f-b3f8-a899c9677808'}, {'type': 'text', 'text': 'GOOGL', 'id': 'lc_fb2fe97d-421b-47c8-8f7b-7162ee9744f0'}, {'type': 'text', 'text': 'NVDA', 'id': 'lc_ddb8c512-9425-4b07-a738-c9ecfd9b4949'}, {'type': 'text', 'text': 'AMZN', 'id': 'lc_8b9e4556-c145-4993-b698-d30789e42c7e'}, {'type': 'text', 'text': 'MSFT', 'id': 'lc_2c909bd6-21b0-4136-947b-51245a05991d'}]
-2026-04-04 10:56:17 | AgentOrchestrator | INFO | Fetching price and news data for AAPL...
-INFO:     127.0.0.1:59428 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59429 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59431 - "POST /messages/?session_id=ad9df49e22f8486197960407aaa3a91c HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59430 - "POST /messages/?session_id=067c12a6153146deb71067c2d90da32e HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59431 - "POST /messages/?session_id=ad9df49e22f8486197960407aaa3a91c HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59430 - "POST /messages/?session_id=067c12a6153146deb71067c2d90da32e HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59431 - "POST /messages/?session_id=ad9df49e22f8486197960407aaa3a91c HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59430 - "POST /messages/?session_id=067c12a6153146deb71067c2d90da32e HTTP/1.1" 202 Accepted
-[04/04/26 10:56:17] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:17 | NewsTool | INFO | Fetching up to 3 news articles for ticker: AAPL
-[04/04/26 10:56:17] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:17 | StockPriceTool | INFO | Fetching current stock price for ticker: AAPL
-                    INFO     Fetching up to 3 news articles for ticker: AAPL                                                                                  news.py:21
-                    INFO     Fetching current stock price for ticker: AAPL                                                                             stock_price.py:19
-2026-04-04 10:56:27 | NewsTool | WARNING | Strict filter dropped all articles for AAPL. Reverting to fallback top results.
-[04/04/26 10:56:27] WARNING  Strict filter dropped all articles for AAPL. Reverting to fallback top results.                                                  news.py:60
-2026-04-04 10:56:27 | NewsTool | INFO | Successfully retrieved 3 articles for AAPL.
-                    INFO     Successfully retrieved 3 articles for AAPL.                                                                                      news.py:73
-INFO:     127.0.0.1:59444 - "POST /messages/?session_id=ad9df49e22f8486197960407aaa3a91c HTTP/1.1" 202 Accepted
-[04/04/26 10:56:28] INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:31 | StockPriceTool | INFO | Retrieved price for AAPL: 255.92
-[04/04/26 10:56:31] INFO     Retrieved price for AAPL: 255.92                                                                                          stock_price.py:22
-INFO:     127.0.0.1:59446 - "POST /messages/?session_id=067c12a6153146deb71067c2d90da32e HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:31 | AgentOrchestrator | INFO | Fetching price and news data for GOOGL...
-INFO:     127.0.0.1:59448 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59447 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59450 - "POST /messages/?session_id=4d790154a96b4e41a680cf5b01f640b5 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59449 - "POST /messages/?session_id=89335554d71545c2bae35d5d3962b55c HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59449 - "POST /messages/?session_id=89335554d71545c2bae35d5d3962b55c HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59450 - "POST /messages/?session_id=4d790154a96b4e41a680cf5b01f640b5 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59449 - "POST /messages/?session_id=89335554d71545c2bae35d5d3962b55c HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59450 - "POST /messages/?session_id=4d790154a96b4e41a680cf5b01f640b5 HTTP/1.1" 202 Accepted
-[04/04/26 10:56:31] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-                    INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:31 | NewsTool | INFO | Fetching up to 3 news articles for ticker: GOOGL
-2026-04-04 10:56:31 | StockPriceTool | INFO | Fetching current stock price for ticker: GOOGL
-                    INFO     Fetching up to 3 news articles for ticker: GOOGL                                                                                 news.py:21
-                    INFO     Fetching current stock price for ticker: GOOGL                                                                            stock_price.py:19
-2026-04-04 10:56:33 | NewsTool | INFO | Successfully retrieved 3 articles for GOOGL.
-[04/04/26 10:56:33] INFO     Successfully retrieved 3 articles for GOOGL.                                                                                     news.py:73
-INFO:     127.0.0.1:59449 - "POST /messages/?session_id=89335554d71545c2bae35d5d3962b55c HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:35 | StockPriceTool | INFO | Retrieved price for GOOGL: 295.77
-[04/04/26 10:56:35] INFO     Retrieved price for GOOGL: 295.77                                                                                         stock_price.py:22
-INFO:     127.0.0.1:59450 - "POST /messages/?session_id=4d790154a96b4e41a680cf5b01f640b5 HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:35 | AgentOrchestrator | INFO | Fetching price and news data for NVDA...
-INFO:     127.0.0.1:59451 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59452 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59453 - "POST /messages/?session_id=17ce516efc744c58b64bcf943c11bf8b HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59454 - "POST /messages/?session_id=28e8e31725e94681b0ba1f2d79b13cf4 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59453 - "POST /messages/?session_id=17ce516efc744c58b64bcf943c11bf8b HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59454 - "POST /messages/?session_id=28e8e31725e94681b0ba1f2d79b13cf4 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59454 - "POST /messages/?session_id=28e8e31725e94681b0ba1f2d79b13cf4 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59453 - "POST /messages/?session_id=17ce516efc744c58b64bcf943c11bf8b HTTP/1.1" 202 Accepted
-[04/04/26 10:56:36] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-[04/04/26 10:56:36] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:36 | NewsTool | INFO | Fetching up to 3 news articles for ticker: NVDA
-2026-04-04 10:56:36 | StockPriceTool | INFO | Fetching current stock price for ticker: NVDA
-                    INFO     Fetching current stock price for ticker: NVDA                                                                             stock_price.py:19
-                    INFO     Fetching up to 3 news articles for ticker: NVDA                                                                                  news.py:21
-2026-04-04 10:56:37 | NewsTool | WARNING | Strict filter dropped all articles for NVDA. Reverting to fallback top results.
-[04/04/26 10:56:37] WARNING  Strict filter dropped all articles for NVDA. Reverting to fallback top results.                                                  news.py:60
-2026-04-04 10:56:37 | NewsTool | INFO | Successfully retrieved 3 articles for NVDA.
-                    INFO     Successfully retrieved 3 articles for NVDA.                                                                                      news.py:73
-INFO:     127.0.0.1:59454 - "POST /messages/?session_id=28e8e31725e94681b0ba1f2d79b13cf4 HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:39 | StockPriceTool | INFO | Retrieved price for NVDA: 177.39
-[04/04/26 10:56:39] INFO     Retrieved price for NVDA: 177.39                                                                                          stock_price.py:22
-INFO:     127.0.0.1:59453 - "POST /messages/?session_id=17ce516efc744c58b64bcf943c11bf8b HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:39 | AgentOrchestrator | INFO | Fetching price and news data for AMZN...
-INFO:     127.0.0.1:59455 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59456 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59457 - "POST /messages/?session_id=74dc768c1c95438596214f5c88f8e799 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59458 - "POST /messages/?session_id=e629177a39c94d4496fecc11d7299f1b HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59458 - "POST /messages/?session_id=e629177a39c94d4496fecc11d7299f1b HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59457 - "POST /messages/?session_id=74dc768c1c95438596214f5c88f8e799 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59458 - "POST /messages/?session_id=e629177a39c94d4496fecc11d7299f1b HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59457 - "POST /messages/?session_id=74dc768c1c95438596214f5c88f8e799 HTTP/1.1" 202 Accepted
-[04/04/26 10:56:39] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-                    INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:39 | NewsTool | INFO | Fetching up to 3 news articles for ticker: AMZN
-2026-04-04 10:56:39 | StockPriceTool | INFO | Fetching current stock price for ticker: AMZN
-                    INFO     Fetching current stock price for ticker: AMZN                                                                             stock_price.py:19
-                    INFO     Fetching up to 3 news articles for ticker: AMZN                                                                                  news.py:21
-2026-04-04 10:56:40 | NewsTool | INFO | Successfully retrieved 3 articles for AMZN.
-[04/04/26 10:56:40] INFO     Successfully retrieved 3 articles for AMZN.                                                                                      news.py:73
-INFO:     127.0.0.1:59458 - "POST /messages/?session_id=e629177a39c94d4496fecc11d7299f1b HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:41 | StockPriceTool | INFO | Retrieved price for AMZN: 209.77
-[04/04/26 10:56:41] INFO     Retrieved price for AMZN: 209.77                                                                                          stock_price.py:22
-INFO:     127.0.0.1:59457 - "POST /messages/?session_id=74dc768c1c95438596214f5c88f8e799 HTTP/1.1" 202 Accepted
-[04/04/26 10:56:42] INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:42 | AgentOrchestrator | INFO | Fetching price and news data for MSFT...
-INFO:     127.0.0.1:59459 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59460 - "GET /sse HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59461 - "POST /messages/?session_id=f27a3aba7ede4ef39f4754c63d0c7b14 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59462 - "POST /messages/?session_id=6e3fdbf0bccd444ebf36955d9f9d6938 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59461 - "POST /messages/?session_id=f27a3aba7ede4ef39f4754c63d0c7b14 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59462 - "POST /messages/?session_id=6e3fdbf0bccd444ebf36955d9f9d6938 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59461 - "POST /messages/?session_id=f27a3aba7ede4ef39f4754c63d0c7b14 HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:59462 - "POST /messages/?session_id=6e3fdbf0bccd444ebf36955d9f9d6938 HTTP/1.1" 202 Accepted
-[04/04/26 10:56:42] INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:42 | NewsTool | INFO | Fetching up to 3 news articles for ticker: MSFT
-                    INFO     Processing request of type CallToolRequest                                                                                    server.py:720
-2026-04-04 10:56:42 | StockPriceTool | INFO | Fetching current stock price for ticker: MSFT
-                    INFO     Fetching up to 3 news articles for ticker: MSFT                                                                                  news.py:21
-                    INFO     Fetching current stock price for ticker: MSFT                                                                             stock_price.py:19
-2026-04-04 10:56:43 | NewsTool | INFO | Successfully retrieved 3 articles for MSFT.
-[04/04/26 10:56:43] INFO     Successfully retrieved 3 articles for MSFT.                                                                                      news.py:73
-INFO:     127.0.0.1:59461 - "POST /messages/?session_id=f27a3aba7ede4ef39f4754c63d0c7b14 HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:45 | StockPriceTool | INFO | Retrieved price for MSFT: 373.46
-[04/04/26 10:56:45] INFO     Retrieved price for MSFT: 373.46                                                                                          stock_price.py:22
-INFO:     127.0.0.1:59462 - "POST /messages/?session_id=6e3fdbf0bccd444ebf36955d9f9d6938 HTTP/1.1" 202 Accepted
-                    INFO     Processing request of type ListToolsRequest                                                                                   server.py:720
-2026-04-04 10:56:45 | AgentOrchestrator | INFO | Structuring raw data for the LLM prompt...
-2026-04-04 10:56:45 | AgentOrchestrator | INFO | Connecting to LLM to generate the briefing...
-2026-04-04 10:56:45 | AgentOrchestrator | INFO | Generating briefing...
-2026-04-04 10:57:02 | AgentOrchestrator | INFO | Briefing successfully written to data/output/briefing.md
-2026-04-04 10:57:02 | MainLauncher | INFO | Cleaning up: Sending shutdown signals to MCP servers...
-2026-04-04 10:57:02 | MainLauncher | INFO | Verifying MCP servers have released their ports...
-2026-04-04 10:57:05 | MainLauncher | INFO | All ports successfully released.
-2026-04-04 10:57:05 | MainLauncher | INFO | All systems offline.
+INFO:     Uvicorn running on http://127.0.0.1:8002 (Press CTRL+C to quit)
+[04/05/26 18:38:08] INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:38:08] INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:38:08] INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Attempting to read watchlist from:  watchlist.py:21
+                             data/input/watchlist.csv                           
+                    INFO     Successfully loaded 5 tickers from  watchlist.py:39
+                             the watchlist                                      
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Fetching current stock price for  stock_price.py:19
+                             ticker: AAPL                                       
+                    INFO     Fetching up to 3 news articles for       news.py:20
+                             ticker: AAPL                                       
+                    INFO     Failed to create CookieCache, reason:  cache.py:338
+                             Error creating CookieCache folder:                 
+                             '/root/.cache/py-yfinance' reason:                 
+                             [Errno 17] File exists:                            
+                             '/root/.cache/py-yfinance'.                        
+                             CookieCache will not be used. Tip: You             
+                             can direct cache to use a different                
+                             location with                                      
+                             'set_tz_cache_location(mylocation)'                
+[04/05/26 18:38:26] ERROR    Error fetching news for AAPL: Failed to  news.py:76
+                             perform, curl: (56) Connection closed              
+                             abruptly. See                                      
+                             https://curl.se/libcurl/c/libcurl-errors           
+                             .html first for more details.                      
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:38:38] ERROR    Failed to get ticker 'AAPL' reason:     base.py:190
+                             Failed to perform, curl: (28)                      
+                             Connection timed out after 30002                   
+                             milliseconds. See                                  
+                             https://curl.se/libcurl/c/libcurl-error            
+                             s.html first for more details.                     
+[04/05/26 18:39:09] INFO     Retrieved price for AAPL: 255.92  stock_price.py:22
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:39:09] INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Fetching up to 3 news articles for       news.py:20
+                             ticker: GOOGL                                      
+                    INFO     Fetching current stock price for  stock_price.py:19
+                             ticker: GOOGL                                      
+                    INFO     Retrieved price for GOOGL: 295.77 stock_price.py:22
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:39:28] INFO     Successfully retrieved 3 articles for    news.py:72
+                             GOOGL.                                             
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:39:28] INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Fetching current stock price for  stock_price.py:19
+                             ticker: NVDA                                       
+                    INFO     Fetching up to 3 news articles for       news.py:20
+                             ticker: NVDA                                       
+[04/05/26 18:39:33] INFO     Retrieved price for NVDA: 177.39  stock_price.py:22
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:39:37] WARNING  Strict filter dropped all articles for   news.py:59
+                             NVDA. Reverting to fallback top results.           
+                    INFO     Successfully retrieved 3 articles for    news.py:72
+                             NVDA.                                              
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+[04/05/26 18:39:37] INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Fetching current stock price for  stock_price.py:19
+                             ticker: AMZN                                       
+                    INFO     Fetching up to 3 news articles for       news.py:20
+                             ticker: AMZN                                       
+                    INFO     Retrieved price for AMZN: 209.77  stock_price.py:22
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:39:43] INFO     Successfully retrieved 1 articles for    news.py:72
+                             AMZN.                                              
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+[04/05/26 18:39:43] INFO     Processing request of type            server.py:727
+                             CallToolRequest                                    
+                    INFO     Fetching up to 3 news articles for       news.py:20
+                             ticker: MSFT                                       
+                    INFO     Fetching current stock price for  stock_price.py:19
+                             ticker: MSFT                                       
+[04/05/26 18:39:44] INFO     Successfully retrieved 3 articles for    news.py:72
+                             MSFT.                                              
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+[04/05/26 18:39:44] INFO     Retrieved price for MSFT: 373.46  stock_price.py:22
+                    INFO     Processing request of type            server.py:727
+                             ListToolsRequest                                   
+INFO:     Shutting down
+INFO:     Shutting down
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7]
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [9]
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8]

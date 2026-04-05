@@ -2,6 +2,12 @@
 from flask import Flask, render_template_string, request
 import subprocess
 import os
+from datetime import date
+import markdown
+from dotenv import load_dotenv
+load_dotenv()
+
+UIPORT = int(os.environ.get("UIPORT", 5000))
 
 app = Flask(__name__)
 
@@ -44,7 +50,9 @@ HTML_TEMPLATE = """
         {% if briefing %}
             <div class="output-section">
                 <h3>Latest Briefing Result:</h3>
-                <pre>{{ briefing }}</pre>
+                <div style="line-height: 1.6; font-size: 15px;">
+                    {{ briefing | safe }}
+                </div>
             </div>
         {% endif %}
         
@@ -91,16 +99,16 @@ def run_researcher():
             
         # run the docker build command with exact path
         build_result = subprocess.run(
-            f"{docker_cmd} build -t financial-researcher .", 
-            shell=True, capture_output=True, text=True
+            [docker_cmd, "build", "-t", "financial-researcher", "."], 
+            capture_output=True, text=True, encoding="utf-8"
         )
         logs += build_result.stdout + "\n" + build_result.stderr
         
         # command to run the container using exact path
-        run_cmd = f"{docker_cmd} run --rm --env-file .env -v {current_dir}/data:/app/data financial-researcher"
+        run_cmd = [docker_cmd, "run", "--rm", "--env-file", ".env", "-v", f"{current_dir}/data:/app/data", "financial-researcher"]
         
         # execute the docker container
-        run_result = subprocess.run(run_cmd, shell=True, capture_output=True, text=True)
+        run_result = subprocess.run(run_cmd, shell=True, capture_output=True, text=True, encoding="utf-8")
         logs += "\n\n" + run_result.stdout + "\n" + run_result.stderr
         
     except FileNotFoundError:
@@ -109,15 +117,17 @@ def run_researcher():
         error_msg = f"an unexpected error occurred: {str(e)}"
     
     # check if the briefing was created and read it
+    file_date = date.today().strftime("%d%m%y")
     briefing_text = ""
-    briefing_path = "data/output/briefing.md"
+    briefing_path = f"data/output/briefing_{file_date}.md"
     
     if os.path.exists(briefing_path):
-        with open(briefing_path, "r") as f:
-            briefing_text = f.read()
+        with open(briefing_path, "r", encoding="utf-8") as f:
+            raw_markdown = f.read()
+            briefing_text = markdown.markdown(raw_markdown)
             
     return render_template_string(HTML_TEMPLATE, error=error_msg, briefing=briefing_text, logs=logs)
 
 if __name__ == "__main__":
     # run the app locally
-    app.run(port=5000)
+    app.run(port=UIPORT)
