@@ -47,6 +47,15 @@ HTML_TEMPLATE = """
                 <pre>{{ briefing }}</pre>
             </div>
         {% endif %}
+        
+        {% if logs %}
+            <div class="output-section" style="margin-top: 50px;">
+                <details>
+                    <summary style="cursor: pointer; color: #007aff; font-weight: bold; padding: 10px; background: #f4f7f6; border-radius: 4px; display: inline-block;">Show Raw Container Logs</summary>
+                    <pre style="margin-top: 15px; background: #2d2d2d; color: #f8f8f2; font-family: monospace; font-size: 12px; overflow-x: auto;">{{ logs }}</pre>
+                </details>
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
@@ -74,22 +83,25 @@ def run_researcher():
                 break
                 
     error_msg = ""
+    logs = ""
     
     try:
         if not docker_cmd:
             raise FileNotFoundError()
             
         # run the docker build command with exact path
-        subprocess.run(
+        build_result = subprocess.run(
             f"{docker_cmd} build -t financial-researcher .", 
             shell=True, capture_output=True, text=True
         )
+        logs += build_result.stdout + "\n" + build_result.stderr
         
         # command to run the container using exact path
         run_cmd = f"{docker_cmd} run --rm --env-file .env -v {current_dir}/data:/app/data financial-researcher"
         
         # execute the docker container
-        subprocess.run(run_cmd, shell=True, capture_output=True, text=True)
+        run_result = subprocess.run(run_cmd, shell=True, capture_output=True, text=True)
+        logs += "\n\n" + run_result.stdout + "\n" + run_result.stderr
         
     except FileNotFoundError:
         error_msg = "could not find docker. is docker desktop installed and running?"
@@ -104,7 +116,7 @@ def run_researcher():
         with open(briefing_path, "r") as f:
             briefing_text = f.read()
             
-    return render_template_string(HTML_TEMPLATE, error=error_msg, briefing=briefing_text)
+    return render_template_string(HTML_TEMPLATE, error=error_msg, briefing=briefing_text, logs=logs)
 
 if __name__ == "__main__":
     # run the app locally
