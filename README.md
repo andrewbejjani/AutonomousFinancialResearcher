@@ -69,7 +69,7 @@ docker build -t financial-researcher .
 
 2- Run the container by passing the env file and mounting the data folder:
 ```bash
-docker run --rm --env-file .env -v $(pwd)/data:/app/data financial-researcher
+docker run --rm --env-file .env -v "$(pwd)/data:/app/data" financial-researcher
 ```
 Logs are directly streamed to the terminal as this docker run command doesn't use the `-d` detached flag.
 The output will be saved under `data/output/briefing_{{ddmmyy}}.md`

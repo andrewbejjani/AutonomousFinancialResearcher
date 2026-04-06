@@ -108,7 +108,7 @@ def run_researcher():
         run_cmd = [docker_cmd, "run", "--rm", "--env-file", ".env", "-v", f"{current_dir}/data:/app/data", "financial-researcher"]
         
         # execute the docker container
-        run_result = subprocess.run(run_cmd, shell=True, capture_output=True, text=True, encoding="utf-8")
+        run_result = subprocess.run(run_cmd, capture_output=True, text=True, encoding="utf-8")
         logs += "\n\n" + run_result.stdout + "\n" + run_result.stderr
         
     except FileNotFoundError:
